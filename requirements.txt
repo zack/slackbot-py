@@ -1,0 +1,2 @@
+slack-bolt==1.16.1
+slack-sdk==3.19.5
