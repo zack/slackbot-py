@@ -1,7 +1,17 @@
 A basic slackbot.
 
-# Requirements
+# Environment Requirements
 1) Python >= 3.10
+
+# Slack Permission Requirements
+## OAuth & Permissions > Scopes > Bot Token Scopes
+1) channels:history
+1) chat:write
+1) reactions:read
+
+## Event Subscriptions > Subscribe to bot events
+1) message:channels
+2) reaction_added
 
 # Development
 1) Follow the instructions
