@@ -1,5 +1,8 @@
 A basic slackbot.
 
+# Requirements
+1) Python >= 3.10
+
 # Development
 1) Follow the instructions
 [here](https://slack.dev/bolt-python/tutorial/getting-started) to create and
