@@ -8,7 +8,7 @@ def respond(say, body, out):
     else:
         respond_unthreaded(say, out)
 
-# Will always respond into the top level ofthe channel of the instigating
+# Will always respond into the top level of the channel of the instigating
 # message, even if that message was in a thread.
 def respond_unthreaded(say, out):
     say(out)
@@ -18,6 +18,9 @@ def respond_unthreaded(say, out):
 # instigating message was threaded it will respond in the existing thread.
 def respond_threaded(say, body, out):
     event = body["event"]
-    thread_ts = event.get("thread_ts", None) or event["ts"]
+
+    thread_ts = (event.get("thread_ts", None)
+        or event.get("ts", None)
+        or event.get('item', {}).get('ts', None))
     say(out, thread_ts=thread_ts)
 

@@ -5,6 +5,7 @@ import re
 from slack_bolt import App
 
 from command_dispatcher import CommandDispatcher
+from reaction_dispatcher import ReactionDispatcher
 
 def read_secrets():
     filename = os.path.join('secrets.json')
@@ -25,6 +26,10 @@ app = App(
 @app.message(re.compile("^\?(\S+)\s(.*)$"))
 def dispatch_command(context, body):
     CommandDispatcher(context, body)
+
+@app.event("reaction_added")
+def reaction_added(context, body):
+    ReactionDispatcher(context, body)
 
 # Start your app
 if __name__ == "__main__":
