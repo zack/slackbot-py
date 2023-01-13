@@ -1,18 +1,26 @@
 import learn
+import plus
 
 class ReactionDispatcher:
     def __init__(self, context, body):
 
-        self.context = context
         self.body = body
+        self.context = context
 
         self.reaction = body['event']['reaction']
 
-        self.dispatch()
+        self._dispatch()
 
-    def dispatch(self):
+    def _dispatch(self):
         match self.reaction:
             case "learn":
-                learn.learn(self.body, self.context.say)
+                self._call(learn.learn)
             case "unlearn":
-                learn.unlearn(self.body, self.context.say)
+                self._call(learn.unlearn)
+            case "heavy_plus_sign":
+                self._call(plus.react_plus)
+            case "plus_one":
+                self._call(plus.react_plus)
+
+    def _call(self, func):
+        func(self.body, self.context.say)

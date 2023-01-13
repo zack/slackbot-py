@@ -53,6 +53,19 @@ def plus(body, say, args, app):
 
     respond_threaded(say, body, out)
 
+def react_plus(body, say):
+    cur = get_cursor()
+
+    plusee = body['event']['item_user']
+    pluser = body['event']['user']
+
+    cur.execute("INSERT INTO pluses(plusee, pluser) values (?, ?)", (plusee, pluser))
+    cur.execute("SELECT count(*) FROM pluses WHERE plusee = ?", [plusee])
+    plusee_plus_count = cur.fetchone()[0]
+    out = f"<@{pluser}> has plussed <@{plusee}>! <@{plusee}> now has *{plusee_plus_count} pluses*!"
+
+    respond_threaded(say, body, out)
+
 def pluses(body, say, args, app):
     cur = get_cursor()
 
