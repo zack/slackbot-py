@@ -25,7 +25,7 @@ app = App(
 # Messages that start with a question mark are bot commands
 @app.message(re.compile("^\?(\S+)\s(.*)$"))
 def dispatch_command(context, body):
-    CommandDispatcher(context, body)
+    CommandDispatcher(app, context, body)
 
 @app.event("reaction_added")
 def reaction_added(context, body):
