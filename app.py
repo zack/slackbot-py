@@ -29,7 +29,7 @@ def dispatch_command(context, body):
 
 @app.event("reaction_added")
 def reaction_added(context, body):
-    ReactionDispatcher(context, body)
+    ReactionDispatcher(app, context, body)
 
 # Start your app
 if __name__ == "__main__":
