@@ -1,4 +1,5 @@
 import bubble
+import learn
 import plus
 import spongecase
 
@@ -30,6 +31,12 @@ class CommandDispatcher:
                 self._call_with_app(plus.plus)
             case "pluses":
                 self._call_with_app(plus.pluses)
+            case "learn":
+                self._call_with_app(learn.learn)
+            case "unlearn":
+                self._call_with_app(learn.unlearn)
+            case "gimme":
+                self._call_with_app(learn.gimme)
 
     def _call(self, func):
         func(self.body, self.context.say, self.args)

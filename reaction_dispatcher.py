@@ -15,9 +15,9 @@ class ReactionDispatcher:
     def _dispatch(self):
         match self.reaction:
             case "learn":
-                self._call_with_app(learn.learn)
+                self._call_with_app(learn.react_learn)
             case "unlearn":
-                self._call_with_app(learn.unlearn)
+                self._call_with_app(learn.react_unlearn)
             case "heavy_plus_sign":
                 self._call(plus.react_plus)
             case "plus_one":
