@@ -17,10 +17,10 @@ def read_secrets():
 
 secrets = read_secrets()
 
-app = App(
-    token=os.getenv('SLACK_CLIENT_SECRET') or secrets['SLACK_CLIENT_SECRET'],
-    signing_secret=os.getenv('SLACK_SIGNING_SECRET') or secrets['SLACK_SIGNING_SECRET']
-)
+token=os.getenv('SLACK_CLIENT_SECRET') or secrets.get('SLACK_CLIENT_SECRET', '')
+signing_secret=os.getenv('SLACK_SIGNING_SECRET') or secrets.get('SLACK_SIGNING_SECRET', '')
+
+app = App(token=token, signing_secret=signing_secret)
 
 # Messages that start with a question mark are bot commands
 @app.message(re.compile("^\?(\S+)\s(.*)$"))
