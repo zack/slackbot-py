@@ -11,7 +11,7 @@ A basic slackbot.
 1) users:read
 
 ## Event Subscriptions > Subscribe to bot events
-1) message:channels
+1) message.channels
 2) reaction_added
 
 # Development
