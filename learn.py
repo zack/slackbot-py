@@ -65,7 +65,7 @@ def unlearn(body, say, args, app):
     if cur.rowcount == 0:
         out = "Sorry, nothing to unlearn."
     else:
-        out = f"Unlearned message from <@{learnee}>)"
+        out = f"Unlearned message from <@{learnee}>"
 
     respond_threaded(say, body, out)
 

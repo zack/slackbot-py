@@ -1,5 +1,6 @@
 import bubble
 import learn
+import ping
 import plus
 import spongecase
 
@@ -16,6 +17,7 @@ class CommandDispatcher:
         self._dispatch()
 
     def _dispatch(self):
+        print(self.command)
         match self.command:
             case "bubble":
                 self._call(bubble.white)
@@ -25,18 +27,20 @@ class CommandDispatcher:
                 self._call(bubble.alternate)
             case "bubble-r":
                 self._call(bubble.rand)
-            case "spongecase":
-                self._call(spongecase.spongecase)
+            case "gimme":
+                self._call_with_app(learn.gimme)
+            case "learn":
+                self._call_with_app(learn.learn)
+            case "ping":
+                self._call(ping.pong)
             case "plus":
                 self._call_with_app(plus.plus)
             case "pluses":
                 self._call_with_app(plus.pluses)
-            case "learn":
-                self._call_with_app(learn.learn)
+            case "spongecase":
+                self._call(spongecase.spongecase)
             case "unlearn":
                 self._call_with_app(learn.unlearn)
-            case "gimme":
-                self._call_with_app(learn.gimme)
 
     def _call(self, func):
         func(self.body, self.context.say, self.args)

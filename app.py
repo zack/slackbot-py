@@ -23,7 +23,7 @@ signing_secret=os.getenv('SLACK_SIGNING_SECRET') or secrets.get('SLACK_SIGNING_S
 app = App(token=token, signing_secret=signing_secret)
 
 # Messages that start with a question mark are bot commands
-@app.message(re.compile("^\?(\S+)\s(.*)$"))
+@app.message(re.compile("^\?(\S+)\s?(.*)$"))
 def dispatch_command(context, body):
     CommandDispatcher(app, context, body)
 
