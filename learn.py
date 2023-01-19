@@ -35,6 +35,7 @@ def learn(body, say, args, app):
         return
 
     learner = body['event']['user']
+    learner_name = app.client.users_info(user=learner)['user']['profile']['display_name']
 
     learnee = clean_user(args[0])
     if len(args) == 1:
@@ -49,7 +50,7 @@ def learn(body, say, args, app):
         respond_threaded(say, body, f"I already know that one.")
         return
 
-    respond_threaded(say, body, f"Learned to <@{learnee}>.")
+    respond_threaded(say, body, f"Learned message about <@{learnee}> (by {learner_name})")
 
 def unlearn(body, say, args, app):
     cur = get_cursor()
@@ -65,7 +66,7 @@ def unlearn(body, say, args, app):
     if cur.rowcount == 0:
         out = "Sorry, nothing to unlearn."
     else:
-        out = f"Unlearned message from <@{learnee}>"
+        out = f"Unlearned message about <@{learnee}>"
 
     respond_threaded(say, body, out)
 
@@ -74,6 +75,7 @@ def react_learn(body, say, app):
 
     learnee = body['event']['item_user']
     learner = body['event']['user']
+    learner_name = app.client.users_info(user=learner)['user']['profile']['display_name']
 
     message_ts = body['event']['item']['ts']
     channel = body['event']['item']['channel']
@@ -91,7 +93,7 @@ def react_learn(body, say, app):
         respond_threaded(say, body, "I already know that one.")
         return
 
-    respond_threaded(say, body, f"Learned message from <@{learnee}> (by <@{learner}>)")
+    respond_threaded(say, body, f"Learned message about <@{learnee}> (by {learner_name})")
 
 def react_unlearn(body, say, app):
     cur = get_cursor()
