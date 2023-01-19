@@ -19,9 +19,9 @@ class ReactionDispatcher:
             case "unlearn":
                 self._call_with_app(learn.react_unlearn)
             case "heavy_plus_sign":
-                self._call(plus.react_plus)
+                self._call_with_app(plus.react_plus)
             case "plus_one":
-                self._call(plus.react_plus)
+                self._call_with_app(plus.react_plus)
 
     def _call(self, func):
         func(self.body, self.context.say)

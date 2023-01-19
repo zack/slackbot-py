@@ -44,19 +44,18 @@ def plus(body, say, args, app):
 
     if plusee == pluser:
         out = "Hey, no plussing yourself! :)"
-        return
-
-    cur.execute("INSERT INTO pluses(plusee, pluser, note) values (?, ?, ?)", (plusee, pluser, note))
-    cur.execute("SELECT count(*) FROM pluses WHERE plusee = ?", [plusee])
-    plusee_plus_count = cur.fetchone()[0]
-    for_note = ''
-    if note:
-        for_note = f" for *\"{note}\"*"
-    out = f"{pluser_name} has plussed <@{plusee}>{for_note}! <@{plusee}> now has *{plusee_plus_count} pluses*!"
+    else:
+        cur.execute("INSERT INTO pluses(plusee, pluser, note) values (?, ?, ?)", (plusee, pluser, note))
+        cur.execute("SELECT count(*) FROM pluses WHERE plusee = ?", [plusee])
+        plusee_plus_count = cur.fetchone()[0]
+        for_note = ''
+        if note:
+            for_note = f" for *\"{note}\"*"
+        out = f"{pluser_name} has plussed <@{plusee}>{for_note}! <@{plusee}> now has *{plusee_plus_count} pluses*!"
 
     respond_threaded(say, body, out)
 
-def react_plus(body, say):
+def react_plus(body, say, app):
     cur = get_cursor()
 
     plusee = body['event']['item_user']
@@ -65,12 +64,11 @@ def react_plus(body, say):
 
     if plusee == pluser:
         out = "Hey, no plussing yourself! :)"
-        return
-
-    cur.execute("INSERT INTO pluses(plusee, pluser) values (?, ?)", (plusee, pluser))
-    cur.execute("SELECT count(*) FROM pluses WHERE plusee = ?", [plusee])
-    plusee_plus_count = cur.fetchone()[0]
-    out = f"{pluser_name} has plussed <@{plusee}>! <@{plusee}> now has *{plusee_plus_count} pluses*!"
+    else:
+        cur.execute("INSERT INTO pluses(plusee, pluser) values (?, ?)", (plusee, pluser))
+        cur.execute("SELECT count(*) FROM pluses WHERE plusee = ?", [plusee])
+        plusee_plus_count = cur.fetchone()[0]
+        out = f"{pluser_name} has plussed <@{plusee}>! <@{plusee}> now has *{plusee_plus_count} pluses*!"
 
     respond_threaded(say, body, out)
 
