@@ -31,6 +31,8 @@ def plus(body, say, args, app):
 
     plusee = clean_user(args[0])
     pluser = body['event']['user']
+    pluser_name = app.client.users_info(user=pluser)['user']['profile']['display_name']
+
     if len(args) == 1:
         note = ""
     elif args[1].lower() == 'for':
@@ -50,7 +52,7 @@ def plus(body, say, args, app):
     for_note = ''
     if note:
         for_note = f" for *\"{note}\"*"
-    out = f"<@{pluser}> has plussed <@{plusee}>{for_note}! <@{plusee}> now has *{plusee_plus_count} pluses*!"
+    out = f"{pluser_name} has plussed <@{plusee}>{for_note}! <@{plusee}> now has *{plusee_plus_count} pluses*!"
 
     respond_threaded(say, body, out)
 
@@ -59,6 +61,7 @@ def react_plus(body, say):
 
     plusee = body['event']['item_user']
     pluser = body['event']['user']
+    pluser_name = app.client.users_info(user=pluser)['user']['profile']['display_name']
 
     if plusee == pluser:
         out = "Hey, no plussing yourself! :)"
@@ -67,7 +70,7 @@ def react_plus(body, say):
     cur.execute("INSERT INTO pluses(plusee, pluser) values (?, ?)", (plusee, pluser))
     cur.execute("SELECT count(*) FROM pluses WHERE plusee = ?", [plusee])
     plusee_plus_count = cur.fetchone()[0]
-    out = f"<@{pluser}> has plussed <@{plusee}>! <@{plusee}> now has *{plusee_plus_count} pluses*!"
+    out = f"{pluser_name} has plussed <@{plusee}>! <@{plusee}> now has *{plusee_plus_count} pluses*!"
 
     respond_threaded(say, body, out)
 

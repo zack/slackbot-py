@@ -41,6 +41,8 @@ class CommandDispatcher:
                 self._call(spongecase.spongecase)
             case "unlearn":
                 self._call_with_app(learn.unlearn)
+            case "++":
+                self._call_with_app(plus.plus)
 
     def _call(self, func):
         func(self.body, self.context.say, self.args)
